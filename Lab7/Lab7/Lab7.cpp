@@ -4,7 +4,7 @@
 
 using namespace std;
 
-string text[100] = { "word word worl woll well null", "word werd"};
+string text[100] = { "word wor worl woll well null", "word werd"};
 
 string purify(string str) {
     string word = str;
@@ -39,6 +39,14 @@ vector<string> split(string text[]) {
 
 bool isEqual(string word1, string word2, int count) {
     string str1 = word1.substr(0, count), str2 = word2.substr(0, count);
+
+    while (str1.size() < count) {
+        str1 += " ";
+    }
+    while (str2.size() < count) {
+        str2 += " ";
+    }
+
     return str1 == str2;
 }
 
