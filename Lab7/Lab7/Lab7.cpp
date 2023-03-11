@@ -1,10 +1,11 @@
 ﻿#include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
-string text[100] = { "word wor worl woll well null", "word werd"};
+string text[100] = { "lerd wor worl woll well null", "word werd"};
 
 string purify(string str) {
     string word = str;
@@ -17,10 +18,6 @@ string purify(string str) {
         }
     }
     
-    /*while (word.size() < 4) {
-        word += " ";
-    }
-    */
     return word;
 }
 
@@ -35,6 +32,32 @@ vector<string> split(string text[]) {
         }
     }
     return words;
+}
+
+string formForBin(string text[]) {
+    string forBin = "";
+    vector<string> words = split(text);
+    for (auto word : words) {
+        forBin += word;
+    }
+    return forBin;
+}
+
+int countSimm(string str, char chr) {
+    sort(str.begin(), str.end());
+    cout << str << endl;
+    int left = 0, right = str.size() - 1, mid = (str.size() - 1) / 2;
+    while ((chr != str[mid]) and (right > left )) {
+        if (chr > str[mid]) {
+            left = mid;
+            mid = (right - left) / 2 + left;
+        }
+        else {
+            right = mid;
+            mid = (right - left) / 2 + left;
+        }
+    }
+    return mid;
 }
 
 bool isEqual(string word1, string word2, int count) {
@@ -55,7 +78,8 @@ int main()
     int numOfOne = 0, numOfTwo = 0, numOfThree = 0, numOfFour = 0;
     
     vector<string> words = split(text);
-    string word1 = words[0];
+    string word1 = "word";
+    char chr = 'w';
 
     for (int i = 1; i < words.size(); i++) {
         if (isEqual(word1, words[i], 1)) {
@@ -78,5 +102,12 @@ int main()
 
     cout << "one: " << numOfOne << " two: " << numOfTwo << " three: " << numOfThree << " four: " << numOfFour << endl;
  
+    string a = formForBin(text);
+    cout << a << endl;
+    int b = countSimm(a,chr);
+    cout << b;
+
+    
+
     return 0;
 }
