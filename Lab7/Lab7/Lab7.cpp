@@ -19,16 +19,25 @@ string purify(string str) {
     return word;
 }
 
-vector<string> split(string str) {
+vector<string> split(string str[]) {
     vector<string> words;
+  
+    for (int i = 0; i < 100; i++) {
+        text[i] += " ";
+        for (int j = 0; j < text[i].size(); j++) {
+            if (text[i][j] == ' ') {
+                string word = purify(text[i].substr(0, j));
+                words.push_back(word);
+                text[i].erase(0, j);
+            }
+        }
+    }
     return words;
 }
 
 int main()
 {
-    string word1 = ".abc, ";
-    string word2 = purify(word1);
-    cout << word2 << " " << 1;
+
 
     return 0;
 }
