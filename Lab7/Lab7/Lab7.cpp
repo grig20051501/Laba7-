@@ -4,7 +4,7 @@
 
 using namespace std;
 
-string text[100] = { "word woll" };
+string text[100] = { "word word worl woll well null", "word werd"};
 
 string purify(string str) {
     string word = str;
@@ -16,20 +16,22 @@ string purify(string str) {
             }
         }
     }
+    
+    /*while (word.size() < 4) {
+        word += " ";
+    }
+    */
     return word;
 }
 
-vector<string> split(string str[]) {
+vector<string> split(string text[]) {
     vector<string> words;
-  
-    for (int i = 0; i < 100; i++) {
-        text[i] += " ";
-        for (int j = 0; j < text[i].size(); j++) {
-            if (text[i][j] == ' ') {
-                string word = purify(text[i].substr(0, j));
-                words.push_back(word);
-                text[i].erase(0, j);
-            }
+    for (int i = 0; i < 100; i ++) {
+        string str = text[i] + " ";
+        while (str.find(' ') != string::npos) {
+            string word = str.substr(0, str.find(' '));
+            str.erase(0, str.find(' ') + 1);
+            words.push_back(word);
         }
     }
     return words;
@@ -61,8 +63,12 @@ int main()
             numOfFour++;
         }
     }
+    for (auto i : words) {
+        cout << i << " ";
+    }
+    cout << endl;
 
-    cout << "one: " << numOfOne << " two: " << numOfTwo << " three: " << numOfThree << " four: " << numOfFour;
+    cout << "one: " << numOfOne << " two: " << numOfTwo << " three: " << numOfThree << " four: " << numOfFour << endl;
  
     return 0;
 }
