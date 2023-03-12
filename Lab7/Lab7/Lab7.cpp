@@ -5,7 +5,7 @@
 
 using namespace std;
 
-string text[100] = { "lerd wor worl woll well null", "word werd"};
+string text[100] = { "erge r gergerg ergerg erg", "word werd"};
 
 string purify(string str) {
     string word = str;
@@ -35,29 +35,47 @@ vector<string> split(string text[]) {
 }
 
 string formForBin(string text[]) {
-    string forBin = "";
+    string str = "";
     vector<string> words = split(text);
     for (auto word : words) {
-        forBin += word;
+        str += word;
     }
-    return forBin;
+    sort(str.begin(), str.end());
+    return str;
 }
 
-int countSimm(string str, char chr) {
-    sort(str.begin(), str.end());
-    cout << str << endl;
+int binarSearch(string str, char chr) {
+
     int left = 0, right = str.size() - 1, mid = (str.size() - 1) / 2;
-    while ((chr != str[mid]) and (right > left )) {
+    int count = 0;
+    while (left <= right) {
+        if (chr == str[mid]) {
+            return mid;
+        }
         if (chr > str[mid]) {
-            left = mid;
+            left = mid + 1;
             mid = (right - left) / 2 + left;
         }
         else {
-            right = mid;
+            right = mid - 1;
             mid = (right - left) / 2 + left;
         }
     }
-    return mid;
+    if (chr == str[mid]) { return mid; }
+    else {
+        return -1;
+    }
+}
+
+int countSimm(string str, char chr) {
+    int count = 0;
+    int pos = binarSearch(str, chr);
+    while (pos != -1) {
+        count++;
+        str.erase(pos, 1);
+        pos = binarSearch(str, chr);
+    }
+    return count;
 }
 
 bool isEqual(string word1, string word2, int count) {
@@ -79,7 +97,7 @@ int main()
     
     vector<string> words = split(text);
     string word1 = "word";
-    char chr = 'w';
+    char chr = 'g';
 
     for (int i = 1; i < words.size(); i++) {
         if (isEqual(word1, words[i], 1)) {
@@ -103,9 +121,8 @@ int main()
     cout << "one: " << numOfOne << " two: " << numOfTwo << " three: " << numOfThree << " four: " << numOfFour << endl;
  
     string a = formForBin(text);
-    cout << a << endl;
     int b = countSimm(a,chr);
-    cout << b;
+    cout << "Number of matches of the symbol " << chr << " is : " << b;
 
     
 
