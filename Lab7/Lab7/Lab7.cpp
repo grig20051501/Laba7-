@@ -5,8 +5,6 @@
 
 using namespace std;
 
-string text[100] = { "erge r gergerg ergerg erg", "word werd"};
-
 string purify(string str) {
     string word = str;
     string restricted = ".,;:!?& ";
@@ -21,20 +19,18 @@ string purify(string str) {
     return word;
 }
 
-vector<string> split(string text[]) {
+vector<string> split(string text) {
     vector<string> words;
-    for (int i = 0; i < 100; i ++) {
-        string str = text[i] + " ";
+        string str = text + ' ';
         while (str.find(' ') != string::npos) {
             string word = str.substr(0, str.find(' '));
             str.erase(0, str.find(' ') + 1);
             words.push_back(word);
         }
-    }
     return words;
 }
 
-string formForBin(string text[]) {
+string formForBin(string text) {
     string str = "";
     vector<string> words = split(text);
     for (auto word : words) {
@@ -94,10 +90,17 @@ bool isEqual(string word1, string word2, int count) {
 int main()
 {
     int numOfOne = 0, numOfTwo = 0, numOfThree = 0, numOfFour = 0;
-    
+
+    string text;
+    cout << "Enter the text" << endl;
+        getline(cin,text);
+
     vector<string> words = split(text);
-    string word1 = "word";
-    char chr = 'g';
+
+    string word1;
+    cout << "Enter the word " << endl;
+    cin >> word1;
+    char chr = word1[0];
 
     for (int i = 1; i < words.size(); i++) {
         if (isEqual(word1, words[i], 1)) {
@@ -113,10 +116,6 @@ int main()
             numOfFour++;
         }
     }
-    for (auto i : words) {
-        cout << i << " ";
-    }
-    cout << endl;
 
     cout << "one: " << numOfOne << " two: " << numOfTwo << " three: " << numOfThree << " four: " << numOfFour << endl;
  
